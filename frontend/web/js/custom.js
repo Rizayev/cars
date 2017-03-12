@@ -29,8 +29,7 @@ $(document).ready(function () {
 
     $('#car-region').change(function () {
 
-        var regionIndex = $(this).find('option:selected').index()
-        console.log(regionIndex);
+        var regionIndex = $(this).find('option:selected').index();
         if (regionIndex > 0) {
             $('#car-city').removeAttr('disabled');
         }else {$('#car-city').attr('disabled','disabled'); }
