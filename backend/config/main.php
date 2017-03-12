@@ -51,9 +51,6 @@ return [
         'assetManager' => [
             'basePath' => '@webroot/assets',
             'baseUrl' => '@web/assets'
-        ],
-        'request' => [
-            'baseUrl' => '/admin'
         ]
 
     ],
