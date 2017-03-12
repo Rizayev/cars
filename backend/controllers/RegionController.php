@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Cars;
+use backend\models\Regions;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CarController implements the CRUD actions for Cars model.
+ * RegionController implements the CRUD actions for Regions model.
  */
-class CarController extends Controller
+class RegionController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,13 +30,13 @@ class CarController extends Controller
     }
 
     /**
-     * Lists all Cars models.
+     * Lists all Regions models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Cars::find(),
+            'query' => Regions::find(),
         ]);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CarController extends Controller
     }
 
     /**
-     * Displays a single Cars model.
+     * Displays a single Regions model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class CarController extends Controller
     }
 
     /**
-     * Creates a new Cars model.
+     * Creates a new Regions model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Cars();
+        $model = new Regions();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->region_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class CarController extends Controller
     }
 
     /**
-     * Updates an existing Cars model.
+     * Updates an existing Regions model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,7 +85,7 @@ class CarController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->region_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class CarController extends Controller
     }
 
     /**
-     * Deletes an existing Cars model.
+     * Deletes an existing Regions model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,52 +107,18 @@ class CarController extends Controller
     }
 
     /**
-     * Finds the Cars model based on its primary key value.
+     * Finds the Regions model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Cars the loaded model
+     * @return Regions the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cars::findOne($id)) !== null) {
+        if (($model = Regions::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionTest() {
-
-           for ( $i = 0; $i < 50; $i++ ) {
-               $model = new Cars();
-               $model->car_condition = 'New';
-               $model->car_region = 2;
-               $model->car_city = 1;
-               $model->mark = 18;
-               $model->model = 150;
-               $model->car_body = 3;
-               $model->car_price = 10000;
-               $model->car_fuel_type = 2;
-               $model->car_owner_number = 2;
-               $model->car_year = 2016;
-               $model->car_sale_type = 1;
-               $model->car_doors_count = 4;
-               $model->car_engine_size = 3000;
-               $model->car_engine_additional = 'MDI 241';
-               $model->car_vin = 1904158405;
-               $model->car_phone = 505840540;
-               $model->car_power_hp = 4400;
-               $model->car_gearbox_type = 1;
-               $model->car_number_gears = 5;
-               $model->car_fuel_city_100km = 6;
-               $model->car_fuel_highway_100km = 7;
-               $model->car_fuel_combined_100km = 8;
-               $model->car_environmental_standard = 5;
-               $model->car_volume_tank = 80;
-               $model->car_is_featured = 0;
-               $model->autobaza = 'SuperBaza';
-               $model->save();
-           }
     }
 }

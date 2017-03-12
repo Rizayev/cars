@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use backend\models\CarMark;
-use backend\models\CarModel;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Cars */
@@ -24,45 +23,53 @@ use backend\models\CarModel;
             'prompt' => 'Select condition',
         ]
     ) ?>
+    <?= $form->field($model, 'car_region')->dropDownList(
+        ArrayHelper::map(\backend\models\Regions::find()->asArray()->all(), 'region_id', 'region_name'),
+        [
+            'prompt' => 'Select car region',
+        ]
+    ) ?>
+
+    <?= $form->field($model, 'car_city')->dropDownList(
+        ArrayHelper::map(\backend\models\City::find()->where(['region_id' => $model->car_region])->asArray()->all(), 'city_id', 'city_name'),
+        [
+            'prompt' => 'Select car city',
+        ]
+    )
+    ?>
 
     <?= $form->field($model, 'mark')->dropDownList(
         ArrayHelper::map(CarMark::find()->asArray()->all(), 'id_car_mark', 'name'),
         [
-            'prompt' => 'Select mark',
+            'prompt' => 'Select mark'
         ]
     ) ?>
 
     <?= $form->field($model, 'model')->dropDownList(
-        ArrayHelper::map(CarModel::find()->asArray()->all(), 'id_car_model', 'name'),
+        ArrayHelper::map(\backend\models\CarModel::find()->where(['id_car_mark' => $model->mark])->asArray()->all(), 'id_car_model', 'name'),
         [
-            'prompt' => 'Select mark',
+            'prompt' => 'Select model'
         ]
-    ) ?>
+    ); ?>
 
-    <?= $form->field($model, 'car_body')->dropDownList([
-        '0' => "Kombi",
-        '1' => "Hatchback",
-        '2' => "Sedan",
-        '3' => "MPV (velké rodinné vozy)",
-        '4' => "SUV (crossovery)",
-        '5' => "Kupé (sportovní vozy)",
-        '6' => "Kabriolet",
-        '7' => "Bus / dodávka",
-    ],
+    <?= $form->field($model, 'car_body')->dropDownList(
+        ArrayHelper::map(\backend\models\CarBody::find()->asArray()->all(), 'id_body', 'car_body_name'),
         [
             'prompt' => 'Select car body',
         ]
     ) ?>
+    <div class="input-group">
 
-    <?= $form->field($model, 'car_price')->textInput() ?>
-
-    <?= $form->field($model, 'car_fuel_type')->dropDownList([
-        '0' => "Benzín",
-        '1' => "Diesel",
-        '2' => "LPG, CNG",
-        '3' => "Hybrid",
-        '4' => "Electro",
-    ]) ?>
+        <?= $form->field($model, 'car_price', [
+            'template' => "{label}\n <div class=\"input-group\"><div class=\"input-group-addon\">$</div>\n{input}\n{hint}</div>\n{error}"
+        ])->textInput() ?>
+    </div>
+    <?= $form->field($model, 'car_fuel_type')->dropDownList(
+        ArrayHelper::map(\backend\models\CarFuelType::find()->asArray()->all(), 'id_fuel', 'car_fuel_name'),
+        [
+            'prompt' => 'Select fuel type',
+        ]
+    ) ?>
 
     <?= $form->field($model, 'car_owner_number')->dropDownList([
         '1' => "1",
@@ -74,13 +81,7 @@ use backend\models\CarModel;
 
     <?= $form->field($model, 'car_year')->textInput() ?>
 
-    <?= $form->field($model, 'car_sale_type')->dropDownList([
-        '1' => "1",
-        '2' => "2",
-        '3' => "3",
-        '4' => "4",
-        '5' => "5",
-    ]) ?>
+    <?= $form->field($model, 'car_sale_type')->textInput() ?>
 
     <?= $form->field($model, 'car_doors_count')->textInput() ?>
 
@@ -90,19 +91,18 @@ use backend\models\CarModel;
 
     <?= $form->field($model, 'car_vin')->textInput() ?>
 
-    <?= $form->field($model, 'car_carlocation')->textInput() ?>
+
 
     <?= $form->field($model, 'car_phone')->textInput() ?>
 
     <?= $form->field($model, 'car_power_hp')->textInput() ?>
 
-    <?= $form->field($model, 'car_gearbox_type')->dropDownList([
-        '1' => "1",
-        '2' => "2",
-        '3' => "3",
-        '4' => "4",
-        '5' => "5",
-    ]) ?>
+    <?= $form->field($model, 'car_gearbox_type')->dropDownList(
+        ArrayHelper::map(\backend\models\CarGearType::find()->asArray()->all(), 'id_gear', 'car_gear_name'),
+        [
+            'prompt' => 'Select mark'
+        ]
+    ) ?>
 
     <?= $form->field($model, 'car_number_gears')->textInput() ?>
 
@@ -112,22 +112,13 @@ use backend\models\CarModel;
 
     <?= $form->field($model, 'car_fuel_combined_100km')->textInput() ?>
 
-    <?= $form->field($model, 'car_environmental_standard')->dropDownList([
-        '1' => "1",
-        '2' => "2",
-        '3' => "3",
-        '4' => "4",
-        '5' => "5",
-    ]) ?>
+    <?= $form->field($model, 'car_environmental_standard')->textInput() ?>
 
     <?= $form->field($model, 'car_volume_tank')->textInput() ?>
 
-    <?= $form->field($model, 'car_is_featured')->dropDownList([
-        '0' => "0",
-        '1' => "1",
-    ]) ?>
+    <?= $form->field($model, 'car_is_featured')->textInput() ?>
 
-    <?= $form->field($model, 'autobaza')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'autobaza')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

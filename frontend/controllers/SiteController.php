@@ -1,11 +1,13 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\CarBody;
+use backend\models\CarFuelType;
+use backend\models\CarGearType;
 use backend\models\CarMark;
-use backend\models\CarModel;
+use backend\models\Regions;
 use Yii;
 use yii\base\InvalidParamException;
-use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -79,22 +81,17 @@ class SiteController extends Controller
             ->select('name,id_car_mark')
             ->asArray()
             ->all();
-
-        return $this->render( ('index'), compact('carMark','carModel') );
-    }
-
-
-    public function actionGetModel($id)
-    {
-        $carModel = CarModel::find()
-            ->select('name,id_car_model')
-            ->where(['id_car_mark' => $id])
+        $carRegion = Regions::find()
             ->asArray()
             ->all();
 
-//        return json_encode($carModel);
-        return Json::encode($carModel);
+        $carFuel = CarFuelType::find()->asArray()->all();
+        $carGear = CarGearType::find()->asArray()->all();
+        $carBody = CarBody::find()->asArray()->all();
+
+        return $this->render( ('index'), compact('carMark','carModel','carRegion','carFuel','carGear','carBody') );
     }
+
 
     /**
      * Logs in a user.

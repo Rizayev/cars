@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use backend\models\CarMark;
+$this->title = 'Title';
 ?>
 <?php
 //print_r($car);
@@ -13,6 +14,11 @@ use backend\models\CarMark;
             ->where(['id_car_mark' => $car['mark']])->all();?>
         <div class="col-md-8">
             <?= $carName[0]['name'] . ' ' . $car['car_year']?>
+            <?php
+                 $region = \backend\models\Regions::find()->where(['region_id'=> $car['car_region']])->asArray()->one();
+                 $city = \backend\models\City::find()->where(['city_id'=> $car['car_city']])->asArray()->one();
+                 echo $region['region_name'] . ' / ' .$city['city_name'];
+            ?>
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -78,15 +84,15 @@ use backend\models\CarMark;
                         <span class="engine-type"><?=$car['car_engine_additional']?></span></li>
                     <li>
                         <b>Převodovka : </b>
-                        <span><?=$car['car_gearbox_type']?></span>
+                        <span><?php $carGear = \backend\models\CarGearType::find()->where(['id_gear' => $car['car_gearbox_type'] ])->asArray()->one(); echo $carGear['car_gear_name']?></span>
                     </li>
                     <li>
                         <b>Palivo : </b>
-                        <span><?=$car['car_fuel_type']?></span>
+                        <span><?php $carFuel = \backend\models\CarFuelType::find()->where(['id_fuel' => $car['car_fuel_type'] ])->asArray()->one(); echo $carFuel['car_fuel_name']?></span>
                     </li>
                     <li>
                         <b>Karoserie : </b>
-                        <span class="body-style"><?=$car['car_body']?></span>
+                        <span class="body-style"><?php $carBody = \backend\models\CarBody::find()->where(['id_body' => $car['car_body'] ])->asArray()->one(); echo $carBody['car_body_name']?></span>
                     </li>
                     <li>
                         <b>Dveře : </b>

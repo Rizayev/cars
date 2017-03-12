@@ -35,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'car_engine_size',
             // 'car_engine_additional',
             // 'car_vin',
-            // 'car_carlocation',
+            // 'car_region',
+            // 'car_city',
             // 'car_phone',
             // 'car_power_hp',
             // 'car_gearbox_type',
@@ -50,5 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+
+    ?>
 </div>

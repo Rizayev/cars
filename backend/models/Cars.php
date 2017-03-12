@@ -21,7 +21,8 @@ use Yii;
  * @property integer $car_engine_size
  * @property string $car_engine_additional
  * @property integer $car_vin
- * @property integer $car_carlocation
+ * @property integer $car_region
+ * @property integer $car_city
  * @property integer $car_phone
  * @property integer $car_power_hp
  * @property integer $car_gearbox_type
@@ -50,8 +51,8 @@ class Cars extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['car_condition', 'mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_engine_additional', 'car_vin', 'car_carlocation', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured', 'autobaza'], 'required'],
-            [['mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_vin', 'car_carlocation', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured'], 'integer'],
+            [['car_condition', 'mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_engine_additional', 'car_vin', 'car_region', 'car_city', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured', 'autobaza'], 'required'],
+            [['mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_vin', 'car_region', 'car_city', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured'], 'integer'],
             [['car_condition', 'car_engine_additional', 'autobaza'], 'string', 'max' => 255],
         ];
     }
@@ -76,7 +77,8 @@ class Cars extends \yii\db\ActiveRecord
             'car_engine_size' => 'Car Engine Size',
             'car_engine_additional' => 'Car Engine Additional',
             'car_vin' => 'Car Vin',
-            'car_carlocation' => 'Car Carlocation',
+            'car_region' => 'Car Region',
+            'car_city' => 'Car City',
             'car_phone' => 'Car Phone',
             'car_power_hp' => 'Car Power Hp',
             'car_gearbox_type' => 'Car Gearbox Type',
