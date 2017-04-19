@@ -6,6 +6,8 @@ use backend\models\CarFuelType;
 use backend\models\CarGearType;
 use backend\models\CarMark;
 use backend\models\Regions;
+use backend\models\Cars;
+use yii\data\Pagination;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -89,7 +91,26 @@ class SiteController extends Controller
         $carGear = CarGearType::find()->asArray()->all();
         $carBody = CarBody::find()->asArray()->all();
 
-        return $this->render( ('index'), compact('carMark','carModel','carRegion','carFuel','carGear','carBody') );
+
+        $query = Cars::find()
+            ->asArray()
+            ->limit(9);
+
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 10]);
+        $cars = $query->offset($pages->offset)
+            ->limit(12)
+            ->all();
+
+//        return $this->render( ('index'), compact('carMark','carRegion','carFuel','carGear','carBody') );
+        return $this->render( ('index'), [
+         'carMark' => $carMark,
+         'carRegion' => $carRegion,
+         'carGear' => $carGear,
+         'carFuel' => $carFuel,
+         'carBody' => $carBody,
+         'cars' => $cars,
+         'pages' => $pages,
+        ]);
     }
 
 

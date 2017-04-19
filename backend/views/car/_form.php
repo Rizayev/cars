@@ -118,7 +118,9 @@ use backend\models\CarMark;
 
     <?= $form->field($model, 'car_is_featured')->textInput() ?>
 
-        <?= $form->field($model, 'autobaza')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'autobaza')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'user_id')->hiddenInput([ 'maxlength' => true, 'value' => Yii::$app->user->identity->getId() ])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

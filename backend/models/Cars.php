@@ -52,7 +52,7 @@ class Cars extends \yii\db\ActiveRecord
     {
         return [
             [['car_condition', 'mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_engine_additional', 'car_vin', 'car_region', 'car_city', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured', 'autobaza'], 'required'],
-            [['mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_vin', 'car_region', 'car_city', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured'], 'integer'],
+            [['mark', 'model', 'car_body', 'car_price', 'car_fuel_type', 'car_owner_number', 'car_year', 'car_sale_type', 'car_doors_count', 'car_engine_size', 'car_vin', 'car_region', 'car_city', 'car_phone', 'car_power_hp', 'car_gearbox_type', 'car_number_gears', 'car_fuel_city_100km', 'car_fuel_highway_100km', 'car_fuel_combined_100km', 'car_environmental_standard', 'car_volume_tank', 'car_is_featured', 'user_id'], 'integer'],
             [['car_condition', 'car_engine_additional', 'autobaza'], 'string', 'max' => 255],
         ];
     }
@@ -90,6 +90,7 @@ class Cars extends \yii\db\ActiveRecord
             'car_volume_tank' => 'Car Volume Tank',
             'car_is_featured' => 'Car Is Featured',
             'autobaza' => 'Autobaza',
+            'user_id' => 'User id',
         ];
     }
 }

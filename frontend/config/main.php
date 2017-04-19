@@ -11,6 +11,12 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'profile' => [
+            'class' => 'frontend\modules\profile\profile',
+        ],
+
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -41,20 +47,18 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            //'suffix' => '.html',
+//            'suffix' => '/',
             'rules' => [
                 '' => 'site/index',
+                'profile' => 'profile',
                 '<action>' => 'site/<action>',
+
             ],
         ],
         'assetManager' => [
             'basePath' => '@webroot/assets',
             'baseUrl' => '@web/assets'
         ],
-        'request' => [
-            'baseUrl' => ''
-        ]
-
     ],
     'params' => $params,
 ];

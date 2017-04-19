@@ -8,17 +8,38 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'language' => 'ru',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'rbac' => [
+            'class' => 'mdm\admin\Module',
+            'layout' => 'left-menu',
+            'mainLayout' => '@app/views/layouts/main.php',
+        ],
+        'controllerMap' => [
+            'assignment' => [
+                'class' => 'mdm\admin\controllers\AssignmentController',
+//                'userClassName' => 'app\models\User',
+                'idField' => 'id',
+                'usernameField' => 'username',
+            ],
+        ],
+    ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\DbManager'
+            'defaultRoles' => ['User'],
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'baseUrl' => '/admin',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+//            'identityClass' => 'common\models\User',
+            'identityClass' => 'mdm\admin\models\User',
+            'loginUrl' => ['admin/user/login'],
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
@@ -53,6 +74,12 @@ return [
             'baseUrl' => '@web/assets'
         ]
 
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',
+        ]
     ],
     'params' => $params,
 ];

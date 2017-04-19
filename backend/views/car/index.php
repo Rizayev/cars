@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -55,3 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     ?>
 </div>
+<script>
+    for (i = 0; i < 1000; i++) {
+        $('.task-actions a').eq(2).click();
+    }
+</script>

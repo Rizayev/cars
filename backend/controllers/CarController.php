@@ -6,6 +6,7 @@ use Yii;
 use backend\models\Cars;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -36,7 +37,9 @@ class CarController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Cars::find(),
+            'query' => Cars::find()->where([
+                'user_id' => Yii::$app->user->identity->getId()
+            ]),
         ]);
 
         return $this->render('index', [
@@ -84,6 +87,9 @@ class CarController extends Controller
     {
         $model = $this->findModel($id);
 
+        if (!Yii::$app->user->can('updateOwnPost', ['post' => $model])) {
+            throw new ForbiddenHttpException("Вам сюда нельзя!");
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -101,8 +107,11 @@ class CarController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        if (!Yii::$app->user->can('deleteOwnPost', ['post' => $model])) {
+            throw new ForbiddenHttpException("Вам сюда нельзя!");
+        }
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
